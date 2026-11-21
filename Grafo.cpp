@@ -217,3 +217,59 @@ void Grafo::busca_largura(int v, std::vector<int> &marcado, std::vector<int> &di
         }
     }
 }
+
+int Grafo::vertice_max_grau_nao_marcado(std::vector<int> &marcado)
+{
+    int vertice_max_grau_nao_marcado = -1;
+    int grau_max = -1;
+
+    for (int i = 0; i < num_vertices_; i++)
+    {
+        if (marcado[i] == 1)
+        {
+            continue;
+        }
+
+        int grau_atual = 0;
+        for (int j = 0; j < num_vertices_; j++)
+        {
+            if (matriz_adj_[i][j] == 1 && marcado[j] == 0)
+            {
+                grau_atual++;
+            }
+        }
+
+        if (grau_atual > grau_max)
+        {
+            grau_max = grau_atual;
+            vertice_max_grau_nao_marcado = i;
+        }
+    }
+
+    return vertice_max_grau_nao_marcado;
+}
+
+void Grafo::influenciadores_a_contratar()
+{
+    std::vector<int> marcado(num_vertices_, 0);
+    std::vector<int> influenciadores;
+
+    int nao_marcados = num_vertices_;
+
+    while (nao_marcados > 0)
+    {
+        int vertice = vertice_max_grau_nao_marcado(marcado);
+        influenciadores.push_back(vertice);
+        marcado[vertice] = 1;
+        nao_marcados--;
+
+        for (int i = 0; i < num_vertices_; i++)
+        {
+            if (matriz_adj_[vertice][i] == 1 && marcado[i] == 0)
+            {
+                marcado[i] = 1;
+                nao_marcados--;
+            }
+        }
+    }
+}
