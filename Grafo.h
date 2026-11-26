@@ -28,7 +28,7 @@ public:
     void busca_largura(int v, std::vector<int> &marcado, std::vector<int> &distancia);
 
     int vertice_max_grau_nao_marcado(std::vector<int> &marcado);
-    void influenciadores_a_contratar();
+    std::vector<int> influenciadores_a_contratar();
 
 private:
     std::vector<std::vector<int>> matriz_adj_;

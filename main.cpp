@@ -10,9 +10,6 @@ int main()
     {
         int num_vertices;
         int num_arestas;
-        int qtd_casos;
-        vector<int> verticesEntrada;
-        vector<int> timeToLive;
 
         cin >> num_vertices >> num_arestas;
         Grafo g(num_vertices);
@@ -24,14 +21,33 @@ int main()
             g.inserir_aresta(Aresta(v1, v2));
         }
 
-        cin >> qtd_casos;
-        for (int i = 0; i < qtd_casos; i++)
-        {
-            int v, ttl;
-            cin >> v >> ttl;
+        int qtd_remocoes;
+        cin >> qtd_remocoes;
 
-            verticesEntrada.push_back(v);
-            timeToLive.push_back(ttl);
+        vector<int> influenciadores = g.influenciadores_a_contratar();
+        cout << influenciadores.size() << ":";
+        for (int i = 0; i < influenciadores.size(); i++)
+        {
+            cout << " " << influenciadores[i];
+        }
+
+        cout << endl;
+
+        for (int i = 0; i < qtd_remocoes; i++)
+        {
+            int v1, v2;
+            cin >> v1 >> v2;
+
+            g.remover_aresta(Aresta(v1, v2));
+            influenciadores = g.influenciadores_a_contratar();
+            cout << influenciadores.size() << ":";
+
+            for (int j = 0; j < influenciadores.size(); j++)
+            {
+                cout << " " << influenciadores[j];
+            }
+
+            cout << endl;
         }
     }
     catch (const exception &e)

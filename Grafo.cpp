@@ -249,7 +249,7 @@ int Grafo::vertice_max_grau_nao_marcado(std::vector<int> &marcado)
     return vertice_max_grau_nao_marcado;
 }
 
-void Grafo::influenciadores_a_contratar()
+std::vector<int> Grafo::influenciadores_a_contratar()
 {
     std::vector<int> marcado(num_vertices_, 0);
     std::vector<int> influenciadores;
@@ -272,4 +272,7 @@ void Grafo::influenciadores_a_contratar()
             }
         }
     }
+
+    sort(influenciadores.begin(), influenciadores.end());
+    return influenciadores;
 }
